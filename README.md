@@ -186,8 +186,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 - **Issues**: [GitHub Issues](https://github.com/dvm-sh/browser-fingerprint-spoofer/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/dvm-sh/browser-fingerprint-spoofer/discussions)
-- **Wiki**: [Project Wiki](https://github.com/dvm-sh/browser-fingerprint-spoofer/wiki)
+
 
 ## 🔄 Changelog
 
@@ -205,3 +204,4 @@ This extension is provided for educational and privacy protection purposes. Whil
 ---
 
 **Made with ❤️ for privacy-conscious users**
+
