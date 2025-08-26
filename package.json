@@ -1,0 +1,41 @@
+{
+  "name": "browser-fingerprint-spoofer",
+  "version": "1.0.0",
+  "description": "A comprehensive browser extension that protects your privacy by spoofing browser fingerprints and blocking various tracking techniques used by websites.",
+  "main": "extension/background.js",
+  "scripts": {
+    "build": "echo 'Extension is ready to use as-is'",
+    "test": "echo 'Load extension in Chrome and test manually'",
+    "lint": "echo 'No linting configured yet'",
+    "dev": "echo 'Load extension in Chrome developer mode'"
+  },
+  "keywords": [
+    "browser-extension",
+    "privacy",
+    "fingerprint",
+    "spoofing",
+    "anti-tracking",
+    "chrome-extension",
+    "security",
+    "web-privacy"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/browser-fingerprint-spoofer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/browser-fingerprint-spoofer/issues"
+  },
+  "homepage": "https://github.com/yourusername/browser-fingerprint-spoofer#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "browserslist": [
+    "Chrome >= 88",
+    "Edge >= 88"
+  ]
+}

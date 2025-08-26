@@ -1,0 +1,64 @@
+{
+    "manifest_version": 3,
+    "name": "Browser Fingerprint Spoofer",
+    "version": "1.0.0",
+    "description": "Privacy-focused tool that helps protect against browser fingerprinting by spoofing detectable browser properties.",
+    
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting",
+      "declarativeNetRequest"
+    ],
+    
+    "host_permissions": [
+      "*://*/*"
+    ],
+    
+    "background": {
+      "service_worker": "background.js"
+    },
+    
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["content.js"],
+        "run_at": "document_start",
+        "all_frames": true
+      }
+    ],
+    
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "Browser Fingerprint Spoofer",
+      "default_icon": "icons/icon.svg"
+    },
+    
+    "icons": {
+      "128": "icons/icon.svg"
+    },
+    
+    "options_page": "options.html",
+    
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "inject.js",
+          "spoof-core.js",
+          "spoof-config.js",
+          "utils.js"
+        ],
+        "matches": ["*://*/*"]
+      }
+    ],
+    
+    "declarative_net_request": {
+      "rule_resources": [
+        {
+          "id": "ruleset_1",
+          "enabled": true,
+          "path": "rules.json"
+        }
+      ]
+    }
+  }

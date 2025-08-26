@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Fingerprint Spoofer - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        select, button {
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus, button:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .status.enabled {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.disabled {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .fingerprint-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .before, .after {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .before h3 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        
+        .after h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric .label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .metric .value {
+            color: #6c757d;
+            font-family: monospace;
+        }
+        
+        .privacy-level {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .privacy-btn {
+            flex: 1;
+            padding: 10px;
+            background: #f8f9fa;
+            color: #495057;
+            border: 2px solid #e9ecef;
+        }
+        
+        .privacy-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .entropy-display {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff9a56 0%, #ffad56 100%);
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .entropy-display h3 {
+            margin-bottom: 10px;
+        }
+        
+        .entropy-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Browser Fingerprint Spoofer</h1>
+            <p>Protect your privacy by spoofing browser fingerprinting data</p>
+        </div>
+
+        <div class="card">
+            <h2>🎛️ Controls</h2>
+            
+            <div class="privacy-level">
+                <button class="privacy-btn" data-level="basic">Basic Protection</button>
+                <button class="privacy-btn active" data-level="standard">Standard Protection</button>
+                <button class="privacy-btn" data-level="strict">Strict Protection</button>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label>Configuration Preset</label>
+                    <select id="configSelect">
+                        <option value="windows_chrome">Windows Chrome</option>
+                        <option value="macos_safari">macOS Safari</option>
+                        <option value="linux_firefox">Linux Firefox</option>
+                        <option value="android_chrome">Android Chrome</option>
+                        <option value="ios_safari">iOS Safari</option>
+                        <option value="random">Random Configuration</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Action</label>
+                    <button id="enableBtn">Enable Spoofing</button>
+                </div>
+                
+                <div class="control-group">
+                    <label>Tools</label>
+                    <button id="detectBtn">Detect Current Fingerprint</button>
+                </div>
+                
+                <div class="control-group">
+                    <label>Privacy</label>
+                    <button id="clearStorageBtn">Clear All Storage</button>
+                </div>
+            </div>
+            
+            <div id="status" class="status disabled">
+                <span>🔴</span> Spoofing Disabled
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Current Fingerprint</h2>
+            <div id="currentFingerprint" class="fingerprint-display">
+                Click "Detect Current Fingerprint" to see your browser's fingerprint data...
+            </div>
+            
+            <div id="entropyDisplay" class="entropy-display" style="display: none;">
+                <h3>Fingerprint Entropy</h3>
+                <div class="entropy-value" id="entropyValue">0 bits</div>
+                <p>Estimated uniqueness: <span id="uniquenessValue">1 in 1</span></p>
+            </div>
+        </div>
+
+        <div class="card" id="comparisonCard" style="display: none;">
+            <h2>🔄 Before vs After Comparison</h2>
+            <div class="comparison">
+                <div class="before">
+                    <h3>🔴 Before Spoofing</h3>
+                    <div id="beforeFingerprint"></div>
+                </div>
+                <div class="after">
+                    <h3>🟢 After Spoofing</h3>
+                    <div id="afterFingerprint"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>ℹ️ About This Tool</h2>
+            <p><strong>Browser Fingerprint Spoofer</strong> is a privacy-focused tool that helps protect against browser fingerprinting by spoofing various detectable browser properties.</p>
+            
+            <h3>🛡️ Protection Features:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>User Agent & Platform spoofing</li>
+                <li>Screen resolution & color depth spoofing</li>
+                <li>WebGL renderer information spoofing</li>
+                <li>Canvas fingerprint randomization</li>
+                <li>WebRTC IP leak prevention</li>
+                <li>Device sensor blocking</li>
+                <li>Timezone & locale spoofing</li>
+                <li>Automatic storage clearing</li>
+            </ul>
+            
+            <h3>⚠️ Disclaimer:</h3>
+            <p style="margin-top: 10px; font-style: italic; color: #6c757d;">
+                This tool is for educational and privacy research purposes only. Use responsibly and in accordance with applicable laws and website terms of service.
+            </p>
+        </div>
+    </div>
+
+    <script src="../src/spoof-core.js"></script>
+    <script src="../src/spoof-config.js"></script>
+    <script src="../src/utils.js"></script>
+    
+    <script>
+        let spoofer = null;
+        let originalFingerprint = null;
+        let currentPrivacyLevel = 'standard';
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDemo();
+            setupEventListeners();
+        });
+
+        function initializeDemo() {
+            // Detect initial fingerprint
+            detectFingerprint();
+        }
+
+        function setupEventListeners() {
+            // Privacy level buttons
+            document.querySelectorAll('.privacy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.privacy-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPrivacyLevel = this.dataset.level;
+                });
+            });
+
+            // Enable/Disable spoofing
+            document.getElementById('enableBtn').addEventListener('click', toggleSpoofing);
+            
+            // Detect fingerprint
+            document.getElementById('detectBtn').addEventListener('click', detectFingerprint);
+            
+            // Clear storage
+            document.getElementById('clearStorageBtn').addEventListener('click', clearStorage);
+        }
+
+        async function toggleSpoofing() {
+            const btn = document.getElementById('enableBtn');
+            const status = document.getElementById('status');
+            
+            if (!spoofer || !spoofer.isEnabled) {
+                // Enable spoofing
+                const configSelect = document.getElementById('configSelect');
+                const selectedConfig = configSelect.value;
+                
+                let config;
+                if (selectedConfig === 'random') {
+                    config = getRandomConfig();
+                } else {
+                    config = SpoofConfigs[selectedConfig];
+                }
+                
+                // Apply privacy level settings
+                config = createConfig(config, currentPrivacyLevel);
+                
+                // Store original fingerprint if not already stored
+                if (!originalFingerprint) {
+                    originalFingerprint = await BrowserUtils.detectFingerprint();
+                }
+                
+                spoofer = new BrowserFingerprintSpoofer(config);
+                spoofer.enable();
+                
+                btn.textContent = 'Disable Spoofing';
+                btn.style.background = '#dc3545';
+                status.className = 'status enabled';
+                status.innerHTML = '<span>🟢</span> Spoofing Enabled';
+                
+                // Show comparison
+                showComparison();
+                
+            } else {
+                // Disable spoofing
+                spoofer.disable();
+                spoofer = null;
+                
+                btn.textContent = 'Enable Spoofing';
+                btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                status.className = 'status disabled';
+                status.innerHTML = '<span>🔴</span> Spoofing Disabled';
+                
+                // Hide comparison
+                document.getElementById('comparisonCard').style.display = 'none';
+                
+                // Refresh page to fully reset
+                setTimeout(() => {
+                    if (confirm('Page will refresh to fully reset spoofing. Continue?')) {
+                        location.reload();
+                    }
+                }, 1000);
+            }
+        }
+
+        async function detectFingerprint() {
+            const display = document.getElementById('currentFingerprint');
+            const entropyDisplay = document.getElementById('entropyDisplay');
+            const entropyValue = document.getElementById('entropyValue');
+            const uniquenessValue = document.getElementById('uniquenessValue');
+            
+            display.textContent = 'Detecting fingerprint...';
+            
+            try {
+                const fingerprint = await BrowserUtils.detectFingerprint();
+                const formatted = BrowserUtils.formatFingerprint(fingerprint);
+                const entropy = BrowserUtils.calculateEntropy(fingerprint);
+                const uniqueness = Math.pow(2, entropy);
+                
+                display.textContent = formatted;
+                entropyValue.textContent = `${entropy} bits`;
+                uniquenessValue.textContent = `1 in ${uniqueness.toLocaleString()}`;
+                entropyDisplay.style.display = 'block';
+                
+            } catch (error) {
+                display.textContent = 'Error detecting fingerprint: ' + error.message;
+                console.error('Fingerprint detection error:', error);
+            }
+        }
+
+        async function showComparison() {
+            const comparisonCard = document.getElementById('comparisonCard');
+            const beforeDiv = document.getElementById('beforeFingerprint');
+            const afterDiv = document.getElementById('afterFingerprint');
+            
+            comparisonCard.style.display = 'block';
+            
+            // Get current (spoofed) fingerprint
+            const currentFingerprint = await BrowserUtils.detectFingerprint();
+            
+            // Show comparison
+            beforeDiv.innerHTML = createComparisonHTML(originalFingerprint);
+            afterDiv.innerHTML = createComparisonHTML(currentFingerprint);
+        }
+
+        function createComparisonHTML(fingerprint) {
+            const fields = [
+                { key: 'userAgent', label: 'User Agent', short: true },
+                { key: 'platform', label: 'Platform' },
+                { key: 'language', label: 'Language' },
+                { key: 'screenWidth', label: 'Screen Width' },
+                { key: 'screenHeight', label: 'Screen Height' },
+                { key: 'hardwareConcurrency', label: 'CPU Cores' },
+                { key: 'timezone', label: 'Timezone' }
+            ];
+            
+            let html = '';
+            fields.forEach(field => {
+                let value = fingerprint[field.key] || 'Unknown';
+                if (field.short && typeof value === 'string' && value.length > 50) {
+                    value = value.substring(0, 47) + '...';
+                }
+                
+                html += `
+                    <div class="metric">
+                        <span class="label">${field.label}</span>
+                        <span class="value">${value}</span>
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
+
+        function clearStorage() {
+            if (confirm('This will clear all browser storage (localStorage, sessionStorage, etc.). Continue?')) {
+                try {
+                    if (typeof localStorage !== 'undefined') {
+                        localStorage.clear();
+                    }
+                    if (typeof sessionStorage !== 'undefined') {
+                        sessionStorage.clear();
+                    }
+                    
+                    alert('✅ Browser storage cleared successfully!');
+                } catch (error) {
+                    alert('❌ Error clearing storage: ' + error.message);
+                }
+            }
+        }
+
+        // Add some fun console messages
+        console.log(`
+🛡️ Browser Fingerprint Spoofer Demo
+=====================================
+        
+This demo showcases privacy protection techniques.
+Open the browser developer tools to see what's happening under the hood!
+        
+🔍 Try these console commands:
+- BrowserUtils.detectFingerprint()
+- BrowserUtils.calculateEntropy(fingerprint)
+- spoofer.getFingerprint() (when spoofing is enabled)
+        `);
+    </script>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Browser Fingerprint Spoofer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .welcome-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .welcome-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .welcome-subtitle {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background: #d5dbdb;
+            transform: translateY(-2px);
+        }
+        
+        .quick-start {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .quick-start h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .quick-start ol {
+            padding-left: 20px;
+            color: #2e7d32;
+        }
+        
+        .quick-start li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+            
+            .welcome-card {
+                padding: 30px 20px;
+            }
+            
+            .welcome-title {
+                font-size: 28px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-card">
+            <div class="welcome-icon">🛡️</div>
+            <h1 class="welcome-title">Welcome to Browser Fingerprint Spoofer!</h1>
+            <p class="welcome-subtitle">Your privacy protection journey starts here. This extension helps you stay anonymous online by protecting your browser fingerprint.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Privacy Protection</h3>
+                    <p class="feature-description">Block websites from creating unique fingerprints of your browser, keeping your online identity private.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Multiple Profiles</h3>
+                    <p class="feature-description">Choose from different browser profiles or create custom ones to blend in with different user groups.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Real-time Protection</h3>
+                    <p class="feature-description">Active protection that works in real-time as you browse, with no performance impact.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Smart Detection</h3>
+                    <p class="feature-description">Intelligent detection and blocking of various fingerprinting techniques used by websites.</p>
+                </div>
+            </div>
+            
+            <div class="quick-start">
+                <h3>🚀 Quick Start Guide</h3>
+                <ol>
+                    <li><strong>Enable Protection:</strong> Click the extension icon and toggle the switch to "ON"</li>
+                    <li><strong>Choose Profile:</strong> Select a browser profile that matches your needs</li>
+                    <li><strong>Set Privacy Level:</strong> Choose between Basic, Standard, or Maximum protection</li>
+                    <li><strong>Browse Safely:</strong> Your browser fingerprint is now protected!</li>
+                </ol>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn btn-primary" id="getStartedBtn">Get Started Now</a>
+                <a href="#" class="btn btn-secondary" id="learnMoreBtn">Learn More</a>
+            </div>
+            
+            <div class="footer">
+                <p>Need help? Check out our <a href="#" id="helpLink">documentation</a> or <a href="#" id="supportLink">contact support</a>.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get Started button
+            document.getElementById('getStartedBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Close welcome page and open popup
+                window.close();
+            });
+            
+            // Learn More button
+            document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                chrome.tabs.create({
+                    url: 'https://github.com/your-repo/browser-fingerprint-spoofer'
+                });
+            });
+            
+            // Help link
+            document.getElementById('helpLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                chrome.tabs.create({
+                    url: chrome.runtime.getURL('options.html')
+                });
+            });
+            
+            // Support link
+            document.getElementById('supportLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                chrome.tabs.create({
+                    url: 'https://github.com/your-repo/browser-fingerprint-spoofer/issues'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

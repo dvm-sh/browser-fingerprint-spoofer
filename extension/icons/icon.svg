@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#grad1)" stroke="#fff" stroke-width="4"/>
+  
+  <!-- Shield icon -->
+  <path d="M64 20 L90 35 L90 65 C90 85 78 95 64 105 C50 95 38 85 38 65 L38 35 Z" 
+        fill="#fff" opacity="0.9"/>
+  
+  <!-- Lock icon inside shield -->
+  <rect x="58" y="70" width="12" height="16" rx="2" fill="#667eea"/>
+  <circle cx="64" cy="65" r="4" fill="#667eea"/>
+  
+  <!-- Privacy dots -->
+  <circle cx="45" cy="45" r="3" fill="#fff" opacity="0.7"/>
+  <circle cx="83" cy="45" r="3" fill="#fff" opacity="0.7"/>
+  <circle cx="45" cy="83" r="3" fill="#fff" opacity="0.7"/>
+  <circle cx="83" cy="83" r="3" fill="#fff" opacity="0.7"/>
+</svg>
