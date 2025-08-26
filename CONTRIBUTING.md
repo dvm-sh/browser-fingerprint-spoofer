@@ -53,7 +53,7 @@ This project is committed to providing a welcoming and inclusive environment for
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/browser-fingerprint-spoofer.git
+   git clone https://github.com/dvm-sh/browser-fingerprint-spoofer.git
    cd browser-fingerprint-spoofer
    ```
 
@@ -275,3 +275,4 @@ Thank you for contributing to Browser Fingerprint Spoofer! Your contributions he
 ---
 
 **Happy coding! 🚀**
+
